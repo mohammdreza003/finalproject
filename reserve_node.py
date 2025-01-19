@@ -1,4 +1,4 @@
-class Reserve_node:
+class Reserve_node_into_room:
     def __init__(self , room_code,start_time , end_time , register):
         self.room_code =room_code
         self.statrt_time = start_time

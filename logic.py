@@ -10,6 +10,7 @@ class Logic:
         self.room = Array()
         self.hash_customer = Daynamichashtable()
         self.floor = Dynanichash2()
+        self.reserve_room  = Daynamichashtable()
     
 
 
@@ -108,6 +109,7 @@ class Logic:
             x =self.hash_customer.search_1(key , val)
             if x :
                 x.history.inserst_first(History_node(room_code , start_time , end_time , code))
+                self.reserve_room.insert(code , Reserve_node(room_code , start_time  , ))
                 return True  , f'your register code {code}'
             else:
                 return False

@@ -7,6 +7,7 @@ class Customer_node:
         self.val = val 
         self.cansel_counter = 0
         self.history = Sll()
+        self.canseled = Sll()
 
     def __str__(self):
         return f''' 
