@@ -15,4 +15,5 @@ class Customer_node:
         val  : {self.val}
         cansel_counter = {self.cansel_counter}
         history  : {self.history.display()}
+        cansel : {self.canseled.display()}
     '''

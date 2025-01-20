@@ -3,7 +3,7 @@ class Reserve_node_a:
         self.room_code = room_code
         self.start_time = start_time
         self.end_time = end_time
-        self.register = code
+        self.key = code
         self.useername_to_reserv = key
 
     def __str__(self):

@@ -108,7 +108,8 @@ class Interface:
                     __customer menu __
                     1.display all room in floor
                     2.book room
-                    3.exit
+                    3.cansel reserve
+                    4.exit
                 '''))
 
                 if customer_menu2 == 1:
@@ -117,7 +118,10 @@ class Interface:
                 if customer_menu2 == 2:
                     self.customer_book_room(key , val)
 
-                if customer_menu2 ==3 :
+                if customer_menu2 == 3 : 
+                    self.cansel_reserve(key , val)
+
+                if customer_menu2 ==4 :
                     break
     def manager_login(self):
         pass
@@ -191,8 +195,36 @@ class Interface:
         room_code  = int(input('Please enter the desired room number for reservation :'))
         start_Time =  input('enter time for resrvaiton start:')
         end_time = input('enter time to reservtion end :')
-        self.logic.customer_book_room(room_code , start_Time , end_time , key , val)
+        code =f'{random.randint(0 , 999999) : 06}'
+
+        x= self.logic.customer_book_room(room_code , start_Time , end_time , key , val , code)
+        if x:
+            print(f' your register code is this : {code}')
+
+    def cansel_reserve(self , key , val ):
+        register = input('enter register code to cansel reserve')
+        while True : 
+            menu = int(input('''why do you want to cansel
+                             1.change my plan
+                             2.change place
+                             3.other cases
+                              '''))
+            if menu == 1:
+                x = 'change plan'
+                return self.cansel ( register,x ,key , val)
+            elif menu == 2:
+                x = 'change place'
+                return self.cansel( register, x , key , val)
+            elif menu == 3:
+                x = 'other cases'
+                return self.cansel( register,x , key , val)
+
+    def cansel(self , register,x , key ,val ):
+        y=self.logic.cansel( register,x , key , val)
+        if y:
+            print('cansel seccsesful.')
     
+                
         
         
     def run(self):

@@ -1,8 +1,10 @@
 from das import Array , Daynamichashtable , Dynanichash2
 from customer_node import Customer_node
 from room_node import Room_node
-from reserve_node import Reserve_node
+from reserve_node import Reserve_node_into_room
 from customer_history_node import History_node
+from reserv_node_a import Reserve_node_a
+from cansel_node import Cansel_node
 import random
 class Logic:
     # اینت رو درست کن 
@@ -78,8 +80,8 @@ class Logic:
     def customer_display(self):
         return self.floor.display_for_customer()
 
-    def customer_book_room(self , room_code  , start_time , end_time ,key , val):
-        x =self.check_full(room_code , start_time , end_time ,key , val)
+    def customer_book_room(self , room_code  , start_time , end_time ,key , val , code):
+        x =self.check_full(room_code , start_time , end_time ,key , val , code)
 
         if x:
             return True
@@ -87,11 +89,10 @@ class Logic:
             return False
         
 
-    def check_full(self,room_code , start_time , end_time , key , val):
+    def check_full(self,room_code , start_time , end_time , key , val , code):
         room_number = room_code %10 
         # bed = (room_code//10 ) %10
         floor = room_code //100 
-        code =f'{random.randint(0 , 999999) : 06}'
         # print(f'your register code :{code}')
         x =self.floor.search_with_room_code(floor , room_number)
         if x:
@@ -105,15 +106,24 @@ class Logic:
                     return False
             return False
     def customer_node_update(self , x,room_code , start_time , end_time , key , val , code):
-            x.time_reserve.inserst_first(Reserve_node(room_code , start_time , end_time , code))
+            x.full = True
+            x.time_reserve.inserst_first(Reserve_node_into_room(room_code , start_time , end_time , code))
             x =self.hash_customer.search_1(key , val)
             if x :
                 x.history.inserst_first(History_node(room_code , start_time , end_time , code))
-                self.reserve_room.insert(code , Reserve_node(room_code , start_time  , ))
-                return True  , f'your register code {code}'
+                # self.reserve_room.insert(code , Reserve_node_a(room_code , start_time  ,end_time , code , key ))
+                return True 
             else:
                 return False
-                
+            
+    def cansel(self, register,x , key , val ):
+        k = self.hash_customer.search_1(key , val)
+        if k :
+            k.history.remove_first()
+            k.canseled.inserst_first(Cansel_node(register,x))
+            k.cansel_counter =+1   
+            return True
+        return False
     
 
     

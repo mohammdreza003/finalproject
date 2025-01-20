@@ -44,7 +44,7 @@ class Array:
 
     def display_a_for_costomer(self):
         for i in range(self.size):
-            if self.arr[i] is not None and self.arr[i].status is True :
+            if self.arr[i] is not None and self.arr[i].status is True and self.arr[i].full is False :
                 print(self.arr[i])
 # لامدا رو درست کن برای این 
 # قسمت ریساز باید برای این درست شه
