@@ -53,8 +53,9 @@ class Interface:
             8. change status room 
             9.  display history of room 
             10. display reserve baze 
-            11 .  display all cansel reserved    
-            12. exit
+            11 .  display all cansel reserved 
+            12. display customer in block list    
+            13. exit
              '''))
             
             if manager_menu == 1:
@@ -88,7 +89,9 @@ class Interface:
 
             elif manager_menu == 11:
                 self.manager_display_canseled()
-            elif manager_menu == 12 :
+            elif manager_menu == 12:
+                self.display_manager_block()
+            elif manager_menu == 13 :
                 break
 
             
@@ -246,7 +249,26 @@ class Interface:
                 x = 3
                 self.logic.display_canseld(x)
                 break
-    
+    def display_manager_block(self):
+        self.logic.display_manager_block()
+        while True:
+            menu = int(input('''which one
+                             1.unblock customer 
+                             2.exit
+                              '''))
+            if menu == 1:
+                self.unblock()
+                break
+            elif menu == 2:
+                break
+
+    def unblock(self):
+        key = int(input('enter username to unblock'))
+        x=self.logic.unblock(key)
+        if x:
+            print('secsesful')
+        else:
+            print('cant')
     #  costomer 
         
     def customer_display(self):
@@ -303,7 +325,9 @@ class Interface:
             print('seccseful.')
 
         else:
-            print('no')       
+            print('no')
+
+            
         
         
     def run(self):

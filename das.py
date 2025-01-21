@@ -2,6 +2,7 @@
 # این هنووز دایرکت اکسس تیبل نیست 
 # اتاق ها 
 # from reserv_node_a import Reserve_node_a
+from block_list import Block_list
 class Array:
     def __init__(self, size=10):
         self.size = size
@@ -296,11 +297,6 @@ class Sll :
 
 
 # s = Sll()
-# s.inserst_first(1)
-# s.inserst_first(2)
-# s.inserst_first(3)
-# s.inserst_first(5)
+# s.inserst_first()
 
-# s.display()
-        
 

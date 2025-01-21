@@ -175,3 +175,18 @@ class Logic:
             self.reson2.display()
         elif x == 3:
             self.reson3.display()
+
+    def display_manager_block(self):
+        return self.block_list.display()
+    def unblock(self , key):
+        x=self.block_list.search(key)
+        if x :
+            self.block_list.remove_data(key)
+            t=self.hash_customer.search(key)
+            if t :
+                t.cansel_counter = 0
+                return True
+            
+        return False
+
+
