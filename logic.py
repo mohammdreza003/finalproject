@@ -6,6 +6,7 @@ from customer_history_node import History_node
 from reserv_node_a import Reserve_node_a
 from cansel_node import Cansel_node
 from cansel_manager_node import Cansel_node_manager
+from block_list import Block_list
 from datetime import datetime
 class Logic:
     # اینت رو درست کن 
@@ -17,6 +18,7 @@ class Logic:
         self.reson1  = Sll()
         self.reson2 = Sll()
         self.reson3 = Sll()
+        self.block_list = Sll()
     
 
 
@@ -126,6 +128,9 @@ class Logic:
             k.history.remove_first()
             k.canseled.inserst_first(Cansel_node(register,x))
             k.cansel_counter =+1
+            if k.cansel_counter == 3 :
+                self.block_list.inserst_first(key)
+
             if x == 'change plan':
                 self.reson1.inserst_first(Cansel_node_manager(key , x , register))   
             elif x == 'change place' :
