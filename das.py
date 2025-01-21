@@ -9,24 +9,21 @@ class Array:
         self.arr = [None] * size
         self.i = 0
 
-    def _hashf(self, item, func=lambda x: x.room_number):
-        return func(item) % self.size
-    def _hashf_s(self , item):
-        return item % self.size
+    
 
     def insert_a(self, item, func=lambda x: x.room_number):
-        index = self._hashf(item ,func)
+        
         # print(f"Inserting into Array: {item} at index {index}.")
-        if self.arr[index] is None:
-            self.arr[index] = item
+        if self.arr[func(item)] is None:
+            self.arr[func(item)] = item
             self.i += 1
             return True
         return False
 # این رو درست کن 
     def search_a(self, data):
-        index = self._hashf_s(data)
-        if self.arr[index] is not None:
-            return self.arr[index]
+        
+        if self.arr[data] is not None:
+            return self.arr[data]
         return False
     
     def not_active_room(self):

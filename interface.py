@@ -3,6 +3,7 @@ from time1 import Time_l
 class Interface:
     def __init__(self,logic):
         self.logic = logic
+        self.time = Time_l()
     # کنترل ورودی ها یادت نره 
     #  مشتری سرچ بازی ای نداره یادت باشه 
     def menu(self):
@@ -126,7 +127,8 @@ class Interface:
                     3.cansel reserve
                     4. display history reserve
                     5. change password
-                    6.exit
+                    6.auto reserve
+                    7.exit
                 '''))
 
                 if customer_menu2 == 1:
@@ -142,7 +144,9 @@ class Interface:
                     self.customer_display_history(key , val)
                 elif customer_menu2 ==5 :
                     self.customer_change_pass(key)
-                elif customer_menu2 ==6 :
+                elif customer_menu2 == 6:
+                    self.auto_reserve(key , val)
+                elif customer_menu2 ==7 :
                     break
     def manager_login(self):
         pass
@@ -153,7 +157,7 @@ class Interface:
         bed = (room_code//10 ) %10
         floor = room_code //100 
         # print(f'{room_number} , {bed} , {floor}')
-        x=self.logic.manager_create_room(floor , bed , room_number)
+        x=self.logic.manager_create_room(floor , bed , room_number , room_code)
         if x :
             print(x)
             print('ok')
@@ -327,8 +331,20 @@ class Interface:
         else:
             print('no')
 
-            
-        
+    def auto_reserve(self , key , val):
+        bed = int(input('enter how many bed you want :'))
+        start_year =  int(input('enter year for resrvaiton start:'))
+        start_month = int(input('enter month for resrvaiton start'))
+        start_day = int(input('enter day resrvaiton start'))
+        start_time = self.time.access(start_year  , start_month , start_day)
+        end_year = int(input('enter year to reservtion end :'))
+        end_month = int(input('enter month resrvaiton end'))
+        end_day = int(input('enter day resrvaiton end'))
+        end_time = self.time.access(end_year , end_month , end_day)
+        code =f'{random.randint(0 , 999999) : 06}'
+        x=self.logic.auto_reserve(key ,bed , start_time , end_time , code , val)
+        if x :
+             print(f' your register code is this : {code}')
         
     def run(self):
         self.menu()

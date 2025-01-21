@@ -11,7 +11,7 @@ from datetime import datetime
 class Logic:
     # اینت رو درست کن 
     def __init__(self):
-        self.room = Array()
+        # self.room = Array()
         self.hash_customer = Daynamichashtable()
         self.floor = Dynanichash2()
         self.reserve_room  = Daynamichashtable()
@@ -36,12 +36,12 @@ class Logic:
         else:
             return False
         
-    def manager_create_room(self,floor , bed , room_number ):
+    def manager_create_room(self,floor , bed , room_number , room_code ):
         # if self.room.search(room_number):
         #     return False
         # return self.room.insert(room_number , Room_node(x,bed,y,room_number))
         
-        return self.floor.insert(Room_node(False , bed , False , room_number  , floor))
+        return self.floor.insert(Room_node(False , bed , False , room_number  , floor , room_code))
     def manager_display_all_room(self):
         return self.floor.display()
     
@@ -188,5 +188,21 @@ class Logic:
                 return True
             
         return False
+    
+    def auto_reserve(self,key ,bed , start_time , end_time , code , val):
+        for i in range (self.floor.size):
+            if self.floor.table[i].number_of_bed == bed and self.floor.table[i].floor is False and self.floor.table[i].status == True:
+                if self.floor.table[i].time_reserve.end_time < end_time:
+                    self.floor.table[i].full = True
+                    room_code=self.floor.table.room_code
+                    self.floor.table[i].time_reserve.inserst_first(Reserve_node_into_room(room_code , start_time , end_time , code ))
+                    x = self. hash_customer.search_1(key , val)
+                    if x :
+                        x.history.inserst_first(History_node(room_code , start_time , end_time , code))
+                        self.reserve_room.insert(int(code) ,Reserve_node_a(code , room_code,start_time , end_time , key))
+                        return True
+            i+=1
+
+
 
 
