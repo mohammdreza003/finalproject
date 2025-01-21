@@ -5,6 +5,7 @@ from reserve_node import Reserve_node_into_room
 from customer_history_node import History_node
 from reserv_node_a import Reserve_node_a
 from cansel_node import Cansel_node
+from cansel_manager_node import Cansel_node_manager
 from datetime import datetime
 class Logic:
     # اینت رو درست کن 
@@ -14,6 +15,8 @@ class Logic:
         self.floor = Dynanichash2()
         self.reserve_room  = Daynamichashtable()
         self.reson1  = Sll()
+        self.reson2 = Sll()
+        self.reson3 = Sll()
     
 
 
@@ -122,8 +125,15 @@ class Logic:
         if k :
             k.history.remove_first()
             k.canseled.inserst_first(Cansel_node(register,x))
-            k.cansel_counter =+1   
+            k.cansel_counter =+1
+            if x == 'change plan':
+                self.reson1.inserst_first(Cansel_node_manager(key , x , register))   
+            elif x == 'change place' :
+                self.reson2.inserst_first(Cansel_node_manager(key , x , register))
+            elif x == 'other cases':
+                self.reson3.inserst_first(Cansel_node_manager(key , x , register))
             return True
+        
         return False
     
     def customer_history(self , key , val):
@@ -146,4 +156,17 @@ class Logic:
         return self.floor.search_with_room_code(floor , room_number)        
     
     def display_reserve_baze(self, start_baze , end_baze):
-        pass
+        
+        for i in range (self.reserve_room.size):
+            if self.reserve_room.table[i] is not None and start_baze<= self.reserve_room.table[i].start_time and end_baze >= self.reserve_room.table[i].end_time :
+                print(self.reserve_room.table[i])
+            i=+1
+
+
+    def display_canseld(self  , x):
+        if x == 1:
+            self.reson1.display()
+        elif x == 2:
+            self.reson2.display()
+        elif x == 3:
+            self.reson3.display()

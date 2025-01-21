@@ -1,4 +1,5 @@
 import random
+from time1 import Time_l
 class Interface:
     def __init__(self,logic):
         self.logic = logic
@@ -51,8 +52,9 @@ class Interface:
             7.display not active room   
             8. change status room 
             9.  display history of room 
-            10. display reserve baze          
-            11. exit
+            10. display reserve baze 
+            11 .  display all cansel reserved    
+            12. exit
              '''))
             
             if manager_menu == 1:
@@ -82,8 +84,11 @@ class Interface:
             elif manager_menu == 9:
                 self.display_history_room()
             elif manager_menu == 10:
-                pass
-            elif manager_menu == 11 :
+                self.display_reserve_baze()
+
+            elif manager_menu == 11:
+                self.manager_display_canseled()
+            elif manager_menu == 12 :
                 break
 
             
@@ -204,9 +209,43 @@ class Interface:
         print(x) 
 
     def display_reserve_baze(self):
-        start_baze =  input('enter start baze to display:')
-        end_baze = input ('enter end baze to display:')
+        # start_baze =  input('enter start baze to display:')
+        time = Time_l()
+        start_year = int(input ('enter start year baze :'))
+        start_month = int(input('enter start month baze'))
+        start_day = int(input('enter start day baze:'))
+        start_baze = time.access(start_year , start_month , start_day)
+        # end_baze = input ('enter end baze to display:')
+        end_year = int(input('enter end year baze:'))
+        end_month = int(input('enter end month baze:'))
+        end_day = int(input('enter end day baze:'))
+        end_baze = time.access(end_year , end_month , end_day)
         self.logic.display_reserve_baze(start_baze , end_baze)
+
+    def manager_display_canseled(self):
+        while True :
+            menu  = int(input( '''
+                which one you want to see 
+                1.change plan 
+                2.change place 
+                3. other cases
+
+
+        '''))
+            if menu == 1:
+                x = 1
+                self.logic.display_canseld(x)
+                break
+
+            elif menu == 2:
+                x = 2
+                self.logic.display_canseld(x)
+                break
+
+            elif menu == 3 :
+                x = 3
+                self.logic.display_canseld(x)
+                break
     
     #  costomer 
         
@@ -214,12 +253,19 @@ class Interface:
         self.logic.customer_display()
     def customer_book_room(self , key , val):
         self.customer_display()
+        time = Time_l()
         room_code  = int(input('Please enter the desired room number for reservation :'))
-        start_Time =  input('enter time for resrvaiton start:')
-        end_time = input('enter time to reservtion end :')
+        start_year =  int(input('enter year for resrvaiton start:'))
+        start_month = int(input('enter month for resrvaiton start'))
+        start_day = int(input('enter day resrvaiton start'))
+        start_time = time.access(start_year  , start_month , start_day)
+        end_year = int(input('enter year to reservtion end :'))
+        end_month = int(input('enter month resrvaiton end'))
+        end_day = int(input('enter day resrvaiton end'))
+        end_time = time.access(end_year , end_month , end_day)
         code =f'{random.randint(0 , 999999) : 06}'
 
-        x= self.logic.customer_book_room(room_code , start_Time , end_time , key , val , code)
+        x= self.logic.customer_book_room(room_code , start_time , end_time , key , val , code)
         if x:
             print(f' your register code is this : {code}')
     # داخل اون یکی ساختمان داده هم باید  درست کنی 
