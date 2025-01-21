@@ -7,6 +7,7 @@ class Reserve_node_into_room:
 
     def __str__(self):
         return f''' 
+        ___time reserve___
         room_code = {self.room_code}
         sstart_time = {self.statrt_time}
         end_time = {self.end_time}

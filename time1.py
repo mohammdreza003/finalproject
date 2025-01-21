@@ -9,4 +9,4 @@ class Time_l:
     
     def _next_day(self):
         self.today = self.today + timedelta(day = 1)
-        return True
+        return self.today

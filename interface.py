@@ -49,8 +49,10 @@ class Interface:
             5. search with room_code 
             6.display all room in floor
             7.display not active room   
-            8. change status room                    
-            9. exit
+            8. change status room 
+            9.  display history of room 
+            10. display reserve baze          
+            11. exit
              '''))
             
             if manager_menu == 1:
@@ -76,7 +78,12 @@ class Interface:
             
             elif manager_menu == 8:
                 self.manager_change_status_room()
-            elif manager_menu == 9 :
+
+            elif manager_menu == 9:
+                self.display_history_room()
+            elif manager_menu == 10:
+                pass
+            elif manager_menu == 11 :
                 break
 
             
@@ -191,7 +198,16 @@ class Interface:
                 x = self.logic.manager_change_status_room(room_code , new_status)
                 print('seccesful.')
                 break
+    def display_history_room(self):
+        room_code = int(input('enter room code to display history:'))
+        x=self.logic.display_history_room(room_code)
+        print(x) 
 
+    def display_reserve_baze(self):
+        start_baze =  input('enter start baze to display:')
+        end_baze = input ('enter end baze to display:')
+        self.logic.display_reserve_baze(start_baze , end_baze)
+    
     #  costomer 
         
     def customer_display(self):

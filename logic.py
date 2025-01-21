@@ -1,4 +1,4 @@
-from das import Array , Daynamichashtable , Dynanichash2
+from das import Array , Daynamichashtable , Dynanichash2 , Sll
 from customer_node import Customer_node
 from room_node import Room_node
 from reserve_node import Reserve_node_into_room
@@ -13,6 +13,7 @@ class Logic:
         self.hash_customer = Daynamichashtable()
         self.floor = Dynanichash2()
         self.reserve_room  = Daynamichashtable()
+        self.reson1  = Sll()
     
 
 
@@ -138,5 +139,11 @@ class Logic:
             return True
         return False
     
+    def display_history_room(self , room_code):
+        room_number = room_code %10 
+        # bed = (room_code//10 ) %10
+        floor = room_code //100 
+        return self.floor.search_with_room_code(floor , room_number)        
     
-    
+    def display_reserve_baze(self, start_baze , end_baze):
+        pass
