@@ -1,7 +1,7 @@
 # from room_node import Room_node
 # این هنووز دایرکت اکسس تیبل نیست 
-# هش فانکش رو درست کن که بشه باهاش سرچ کرد 
 # اتاق ها 
+# from reserv_node_a import Reserve_node_a
 class Array:
     def __init__(self, size=10):
         self.size = size
@@ -56,9 +56,9 @@ class Daynamichashtable:
         self.size = 29 
         self.num_element  = 0 
 
-    def _hash_function(self, key, func = lambda x:x):
+    def _hash_function(self, key):
         a = 0.6188033
-        return int(self.size * ((func(key) * a) %1))
+        return int(self.size * (((key) * a) %1))
     
     def _rehash(self, new_size):
         old_table = self.table
@@ -70,7 +70,7 @@ class Daynamichashtable:
     def _rehash_item(self , old_table):
         for item in old_table:
             if item is not None:
-                self._insert_whtout_resize(item)
+                self._insert_whtout_resize( item.key,item)
 
     def _resize_if_need(self):
         l_factor = (self.num_element) / self.size
@@ -127,6 +127,8 @@ class Daynamichashtable:
             if self.table[i] is not None:
                 print(self.table[i])
             i+=1
+
+
 
 
 

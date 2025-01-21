@@ -5,7 +5,7 @@ from reserve_node import Reserve_node_into_room
 from customer_history_node import History_node
 from reserv_node_a import Reserve_node_a
 from cansel_node import Cansel_node
-import random
+from datetime import datetime
 class Logic:
     # اینت رو درست کن 
     def __init__(self):
@@ -111,7 +111,7 @@ class Logic:
             x =self.hash_customer.search_1(key , val)
             if x :
                 x.history.inserst_first(History_node(room_code , start_time , end_time , code))
-                # self.reserve_room.insert(code , Reserve_node_a(room_code , start_time  ,end_time , code , key ))
+                self.reserve_room.insert(int(code) ,Reserve_node_a(code , room_code,start_time , end_time , key))
                 return True 
             else:
                 return False
@@ -125,5 +125,16 @@ class Logic:
             return True
         return False
     
-
+    def customer_history(self , key , val):
+        x = self.hash_customer.search_1(key , val)
+        if x :
+            return x
+        return False
+    
+    def change_pass(self, key , ne_pass):
+        x=self.hash_customer.search(key)
+        if x:
+            x.val = ne_pass
+            return True
+        return False
     

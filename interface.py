@@ -97,7 +97,7 @@ class Interface:
         val = input('inter your pasword:')
         x=self.logic.customer_login(key , val)
         if x :
-            self.customer_log(self,key , val)
+            self.customer_log(key , val)
         else:
             print('no')
 
@@ -109,19 +109,25 @@ class Interface:
                     1.display all room in floor
                     2.book room
                     3.cansel reserve
-                    4.exit
+                    4. display history reserve
+                    5. change password
+                    6.exit
                 '''))
 
                 if customer_menu2 == 1:
                     self.customer_display_in_floor()
 
-                if customer_menu2 == 2:
+                elif customer_menu2 == 2:
                     self.customer_book_room(key , val)
 
-                if customer_menu2 == 3 : 
+                elif customer_menu2 == 3 : 
                     self.cansel_reserve(key , val)
 
-                if customer_menu2 ==4 :
+                elif customer_menu2 == 4 :
+                    self.customer_display_history(key , val)
+                elif customer_menu2 ==5 :
+                    self.customer_change_pass(key)
+                elif customer_menu2 ==6 :
                     break
     def manager_login(self):
         pass
@@ -200,7 +206,7 @@ class Interface:
         x= self.logic.customer_book_room(room_code , start_Time , end_time , key , val , code)
         if x:
             print(f' your register code is this : {code}')
-
+    # داخل اون یکی ساختمان داده هم باید  درست کنی 
     def cansel_reserve(self , key , val ):
         register = input('enter register code to cansel reserve')
         while True : 
@@ -223,8 +229,19 @@ class Interface:
         y=self.logic.cansel( register,x , key , val)
         if y:
             print('cansel seccsesful.')
-    
-                
+
+    def customer_display_history(self , key , val):
+        x=self.logic.customer_history(key , val)
+        print(x)
+
+    def customer_change_pass(self , key ):
+        ne_pass = input('enter new pass :')
+        x=self.logic.change_pass(key , ne_pass)
+        if x:
+            print('seccseful.')
+
+        else:
+            print('no')       
         
         
     def run(self):
