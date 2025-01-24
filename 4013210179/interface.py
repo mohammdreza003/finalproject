@@ -1,7 +1,5 @@
 import random
 from time1 import Time_l
-# from file import Read_file
-
 class Interface:
     def __init__(self,logic):
         self.logic = logic
@@ -57,10 +55,8 @@ class Interface:
             9.  display history of room 
             10. display reserve baze 
             11 .  display all cansel reserved 
-            12. display customer in block list 
-            13. sort with floor or number of bed 
-                                      
-            14. exit
+            12. display customer in block list    
+            13. exit
              '''))
             
             if manager_menu == 1:
@@ -96,27 +92,11 @@ class Interface:
                 self.manager_display_canseled()
             elif manager_menu == 12:
                 self.display_manager_block()
-            elif manager_menu == 13:
-                self.sort()
-            elif manager_menu == 14 :
+            elif manager_menu == 13 :
                 break
 
             
-    def sort(self):
-        while True:
-            menu = int(input('''witch one
-                             1.floor sort 
-                             2.bed sort
-                             
-                              '''))
-
-            if menu == 1:
-                self.logic.floor_sort()
-                break
-
-            elif menu == 2:
-                self.logic.bed_sort()
-                break
+                
             
     def customer_sign_in(self):
         key = int(input('plaese enter your na_code for be your username to sign in :'))
@@ -189,15 +169,14 @@ class Interface:
         self.logic.manager_display_all_room()
 
     def manager_display_all_customer(self):
-        x = self.logic.manager_display_all_customer()
-        print(x)
+        print(self.logic.manager_display_all_customer())
     def customer_search_with_floors(self):
         rangs_input = input('input range floors you want :(like 1,3)')
         s = self.logic.customer_search_with_floors(rangs_input)
 
     def manager_display_in_floor(self):
         display_input = int(input('input floor to display all room in floor:'))
-        print(self.logic.anager_display_in_floor(display_input))
+        self.logic.anager_display_in_floor(display_input)
 
     def manager_search_with_room_code(self):
         room_code = int(input('enter room code :'))
@@ -352,9 +331,21 @@ class Interface:
         else:
             print('no')
 
-
-    
+    def auto_reserve(self , key , val):
+        bed = int(input('enter how many bed you want :'))
+        start_year =  int(input('enter year for resrvaiton start:'))
+        start_month = int(input('enter month for resrvaiton start'))
+        start_day = int(input('enter day resrvaiton start'))
+        start_time = self.time.access(start_year  , start_month , start_day)
+        end_year = int(input('enter year to reservtion end :'))
+        end_month = int(input('enter month resrvaiton end'))
+        end_day = int(input('enter day resrvaiton end'))
+        end_time = self.time.access(end_year , end_month , end_day)
+        code =f'{random.randint(0 , 999999) : 06}'
+        x=self.logic.auto_reserve(key ,bed , start_time , end_time , code , val)
+        if x :
+             print(f' your register code is this : {code}')
+        
     def run(self):
         self.menu()
-        
     

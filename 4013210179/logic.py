@@ -6,8 +6,8 @@ from customer_history_node import History_node
 from reserv_node_a import Reserve_node_a
 from cansel_node import Cansel_node
 from cansel_manager_node import Cansel_node_manager
-# from block_list import Block_list
-# from datetime import datetime
+from block_list import Block_list
+from datetime import datetime
 class Logic:
     # اینت رو درست کن 
     def __init__(self):
@@ -41,12 +41,12 @@ class Logic:
         #     return False
         # return self.room.insert(room_number , Room_node(x,bed,y,room_number))
         
-        return self.floor.insert(floor,Room_node(False , bed , False , room_number  , floor , room_code))
+        return self.floor.insert(Room_node(False , bed , False , room_number  , floor , room_code))
     def manager_display_all_room(self):
         return self.floor.display()
     
     def manager_display_all_customer(self):
-        return self.hash_customer.display()
+        self.hash_customer.display()
     # این برا چیه ؟؟؟؟  |
     def manager_search_floor(self):
         pass
@@ -189,63 +189,20 @@ class Logic:
             
         return False
     
-    def floor_sort(self):
-        x=self.floor.table
-        self.floor.sort_merge()
-    def bed_sort(self):
-        pass
-
-   
-    
-    
-    # def user_read(self):
-    #     with open('test_user.txt', 'r') as users_file:
-    #         lines = users_file.readlines()  
-    #         print('p')
-    #         for line in lines:
-    #             line = line.strip()  
-    #             key, value = line.split(',')  
-    #             # print('*')
-    #             self.hash_customer.insert(key , Customer_node(key , value))
-    #             self.manager_display_all_customer
-
-    # def room_read(self):
-    #     with open('test_room.txt' ,'r') as status :
-
-    
-
-# class Read_file:
-#     def __init__(self):
-#         self.int
-
-#     def user_read(self):
-#         with open('test_user.txt', 'r') as users_file:
-#             lines = users_file.readlines()  
-#             print('p')
-#             for line in lines:
-#                 line = line.strip()  
-#                 key, value = line.split(',')  
-#                 print('*')
-#                 self.logic.hash_customer.insert(key , Customer_node(key , value))
-#                 self.logic.manager_display_all_customer()
-#                 # self.logic.hash_customer.display()
-
-#     def room_read(self):
-#         pass
+    def auto_reserve(self,key ,bed , start_time , end_time , code , val):
+        for i in range (self.floor.size):
+            if self.floor.table[i].number_of_bed == bed and self.floor.table[i].floor is False and self.floor.table[i].status == True:
+                if self.floor.table[i].time_reserve.end_time < end_time:
+                    self.floor.table[i].full = True
+                    room_code=self.floor.table.room_code
+                    self.floor.table[i].time_reserve.inserst_first(Reserve_node_into_room(room_code , start_time , end_time , code ))
+                    x = self. hash_customer.search_1(key , val)
+                    if x :
+                        x.history.inserst_first(History_node(room_code , start_time , end_time , code))
+                        self.reserve_room.insert(int(code) ,Reserve_node_a(code , room_code,start_time , end_time , key))
+                        return True
+            i+=1
 
 
-
-
-#     def run(self):
-
-#         self.user_read()
-
-# f = Read_file()
-# f.user_read()
-        
-    
-
-    
-    
 
 

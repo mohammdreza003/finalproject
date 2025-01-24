@@ -3,26 +3,6 @@
 # اتاق ها 
 # from reserv_node_a import Reserve_node_a
 from block_list import Block_list
-class S_Array:
-    def __init__(self, size):
-        self.size = size
-        self.arr = [None] * size  
-        self.num_elements = 0  
-
-    def insert(self, value):
-        if self.num_elements < self.size:
-            self.arr[self.num_elements] = value
-            self.num_elements += 1
-
-    def __getitem__(self, index):
-        return self.arr[index]
-
-    def __setitem__(self, index, value):
-        self.arr[index] = value
-
-    def __len__(self):
-        return self.num_elements
-
 class Array:
     def __init__(self, size=10):
         self.size = size
@@ -46,39 +26,25 @@ class Array:
             return self.arr[data]
         return False
     
-    def search_auto(self , data):
-        for i in range(self.size):
-            if self.arr[i] is not None:
-                if self.arr[i].number_of_bed == data:
-                    return self.arr[i]
-            i+=1
-        
-    
     def not_active_room(self):
         for i in range (self.size):
             if self.arr[i] is not None:
                 if self.arr[i].status is False:
                     print(self.arr[i])
 
-            i +=1
-
-   
+    # def change_status(self):
+    #     pass
+    
     def display_a(self):
         for i in range(self.size):
             if self.arr[i] is not None:
                 print(self.arr[i])
-                i+=1
 
     def display_a_for_costomer(self):
         for i in range(self.size):
             if self.arr[i] is not None and self.arr[i].status is True and self.arr[i].full is False :
                 print(self.arr[i])
-                i+=1
-
-    # def display_aa(self):
-    #     for i in range (self.size):
-    #         if self.arr[i] is not None :
-    #             yield self.arr[i]
+# لامدا رو درست کن برای این 
 # قسمت ریساز باید برای این درست شه
 
 
@@ -90,7 +56,7 @@ class Daynamichashtable:
 
     def _hash_function(self, key):
         a = 0.6188033
-        return int(self.size * ((int(key) * a) %1))
+        return int(self.size * (((key) * a) %1))
     
     def _rehash(self, new_size):
         old_table = self.table
@@ -172,8 +138,8 @@ class Dynanichash2:
         self.size = 19
         self.num_element = 0
 
-    def  _hash_function(self,key):
-        return ((key) * 31 + 7) % self.size
+    def _hash_function(self, key):
+        return key % self.size
 
     def dat_in_hash(self):
         for i in range(self.size):
@@ -197,21 +163,18 @@ class Dynanichash2:
         l_factor = (self.num_element) / self.size
         if l_factor >= 0.75:
             self._rehash((self.size * 2))
-        
+        elif l_factor < 0.25 and self.size > 5:
+            self._rehash((self.size // 2))
 
-    def _insert(self,  key,item):
-        index = self._hash_function(key)
-        while self.table[index] is not None:
-            index = (index + 1) % self.size 
-        
+    def _insert(self, item, func=lambda x: x.floor):
+        index = self._hash_function(func(item))
         if self.table[index] is None:
             self.table[index] = Array()
-        self.table[index].insert_a(item)
-        self.num_element += 1
+        if self.table[index].insert_a(item):
+            self.num_element += 1
 
-
-    def insert(self,  key,item):
-        self._insert(key,item)
+    def insert(self, item):
+        self._insert(item)
         self._resize_if_need()
 
 
@@ -247,21 +210,6 @@ class Dynanichash2:
             if self.table[i] is not None:
                 self.table[i].not_active_room()
             i +=1
-
-    def search_auto(self, data):
-        print(self.table)
-
-        for  i in range(self.size):
-            if self.table[i] is  not None and self.table[i].search_auto(data):
-                
-                return self.table[i].search_auto(data)
-            i+=1
-        return False
-
-    def sort_merge(self):
-        for i in range(self.size):
-            if self.table[i] is not None:
-                self.table[i].merge_sort()
 
 
 class Node:
@@ -342,8 +290,6 @@ class Sll :
         while temp:
             print(temp.data, end='->')
             temp = temp.next
-
-
    
 
 
